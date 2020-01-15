@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="src:main:hibernate.cfg.xml/Hibernate" uuid="3276e834-705e-4b86-be6a-1d170ffb4582">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/TomasCh/IdeaProjects/4IT353_chot02_2sem/src/main/hibernate.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost/tickets</jdbc-url>
+    </data-source>
+  </component>
+</project>
