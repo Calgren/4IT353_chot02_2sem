@@ -13,7 +13,6 @@ import java.util.Calendar;
 public class Main {
     public static void main(String[] args) {
         Season c = new Season();
-        c.setSeasonId(1);
         c.setStart(new Date(Calendar.getInstance().getTime().getTime()));
         c.setEnd(new Date(Calendar.getInstance().getTime().getTime()));
         Configuration con = new Configuration().configure();
