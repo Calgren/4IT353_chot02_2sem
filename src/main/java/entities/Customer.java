@@ -13,6 +13,11 @@ public class Customer {
     private String password;
     private Date birthDate;
     private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private Date registerDate;
+
 
     public String getLogin() {
         return login;
@@ -85,9 +90,4 @@ public class Customer {
     public void setRegisterDate(Date registerDate) {
         this.registerDate = registerDate;
     }
-
-    private String lastName;
-    private String email;
-    private String phone;
-    private Date registerDate;
 }
