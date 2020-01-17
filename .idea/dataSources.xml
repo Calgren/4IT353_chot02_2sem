@@ -11,5 +11,15 @@ C:/Users/TomasCh/IdeaProjects/4IT353_chot02_2sem/src/main/hibernate.cfg.xml</rem
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost/tickets</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="hibernate.cfg.xml/Hibernate" uuid="99905477-b719-4ac5-ab72-46946af2cbf8">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/TomasCh/IdeaProjects/4IT353_chot02_2sem/src/main/resources/hibernate.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost/tickets</jdbc-url>
+    </data-source>
   </component>
 </project>
