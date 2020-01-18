@@ -28,7 +28,9 @@ public class App {
 
     public void setLoggedInCustomer(Customer loggedInCustomer) {
         this.loggedInCustomer = loggedInCustomer;
-        System.out.println("Logged in customer set to: " + this.loggedInCustomer.getLogin());
+        if (loggedInCustomer != null) {
+            System.out.println("Logged in customer set to: " + this.loggedInCustomer.getLogin());
+        }
     }
 
     private Customer loggedInCustomer;
@@ -71,6 +73,22 @@ public class App {
             this.setStage(stage);
         } catch (IOException e) {
             System.out.println("Error during switching to login screen. " + e.getMessage());
+        }
+
+    }
+
+    public void homeScreen() {
+        try {
+            System.out.println("Setting home screen.");
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("home.fxml"));
+            Scene scene = new Scene(root, 600, 400);
+            stage.setTitle("Home");
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+            this.setStage(stage);
+        } catch (IOException e) {
+            System.out.println("Error during switching to Home screen. " + e.getMessage());
         }
 
     }

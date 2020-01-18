@@ -1,6 +1,8 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class SeasonTicket {
@@ -13,6 +15,9 @@ public class SeasonTicket {
     private Season season;
     private Float price;
     private String sector;
+
+    @ManyToMany(mappedBy = "tickets")
+    private Set<Customer> employees = new HashSet<>();
 
     public Integer getIdSeasonTicket() {
         return idSeasonTicket;

@@ -76,8 +76,14 @@ public class LoginController {
                     }
                 });
             } else {
-                App.getInstance().setLoggedInCustomer(customer);;
                 spinner.setProgress(1);
+                Platform.runLater(new Runnable(){
+                    @Override
+                    public void run() {
+                        App.getInstance().setLoggedInCustomer(customer);;
+                        App.getInstance().homeScreen();
+                    }
+                });
             }
             return customer;
         });
