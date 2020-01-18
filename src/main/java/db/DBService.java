@@ -12,7 +12,6 @@ import javax.transaction.Transactional;
 
 public class DBService{
 
-    @Transactional
     public static Customer logIn(String login, String password) {
         Session session = DB.getInstance().getSessionFactory().openSession();
         //Transaction tx = session.beginTransaction();
@@ -21,5 +20,12 @@ public class DBService{
         Customer customer = (Customer) q.uniqueResult();
         session.close();
         return customer;
+    }
+
+    public static void insertCustomer(Customer c) {
+        Session session = DB.getInstance().getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        session.save(c);
+        tx.commit();
     }
 }
