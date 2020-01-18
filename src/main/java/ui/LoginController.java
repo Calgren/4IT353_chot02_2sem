@@ -1,5 +1,6 @@
 package ui;
 
+import app.App;
 import db.DBService;
 import entities.Customer;
 import javafx.application.Platform;
@@ -26,8 +27,6 @@ public class LoginController {
     @FXML
     public Button logInButton;
 
-    private Customer loggedInCustomer;
-
     public void handleLogInClick(ActionEvent actionEvent) {
         if (passwordField.getText().isBlank() || loginField.getText().isBlank()) {
             logInErrorLabel.setVisible(true);
@@ -47,6 +46,7 @@ public class LoginController {
     }
 
     public void handleNewAccountClick(ActionEvent actionEvent) {
+        App.getInstance().newAccountScreen();
     }
 
     private void loginPromise() {
@@ -76,7 +76,7 @@ public class LoginController {
                     }
                 });
             } else {
-                loggedInCustomer = customer;
+                App.getInstance().setLoggedInCustomer(customer);;
                 spinner.setProgress(1);
             }
             return customer;

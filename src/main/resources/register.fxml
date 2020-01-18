@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #121212;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #121212;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RegisterController">
    <left>
       <VBox fillWidth="false" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #404040;" BorderPane.alignment="CENTER">
          <children>
@@ -97,7 +97,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </TextField>
-            <Button fx:id="registerButton" mnemonicParsing="false" style="-fx-background-color: #0a5d00;" text="Register" textFill="#ababab">
+            <Button mnemonicParsing="false" onAction="#registerNewCustomer" style="-fx-background-color: #0a5d00;" text="Register" textFill="#ababab">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
@@ -114,7 +114,7 @@
    <top>
       <HBox prefHeight="19.0" prefWidth="600.0" style="-fx-background-color: #0a5d00;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="18.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="18.0" fitWidth="27.0" onMouseClicked="#handleBackClick" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@img/back.png" />
                </image>
