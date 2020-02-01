@@ -33,6 +33,7 @@
        <!-- <mapping resource = "Employee.hbm.xml"/>-->
         <mapping class="entities.Customer"/>
         <mapping class="entities.Season"/>
+        <mapping class="entities.Sector"/>
         <mapping class="entities.SeasonTicket"/>
 
     </session-factory>

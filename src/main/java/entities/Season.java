@@ -37,4 +37,8 @@ public class Season {
     public void setEnd(Date end) {
         this.end = end;
     }
+
+    public String toString() {
+        return this.start + " - " + this.end;
+    }
 }

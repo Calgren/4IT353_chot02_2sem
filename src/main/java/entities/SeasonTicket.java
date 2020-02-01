@@ -14,7 +14,9 @@ public class SeasonTicket {
     @JoinColumn(name = "seasonId")
     private Season season;
     private Float price;
-    private String sector;
+    @ManyToOne
+    @JoinColumn(name = "sectorId")
+    private Sector sector;
 
     @ManyToMany(mappedBy = "tickets")
     private Set<Customer> employees = new HashSet<>();
@@ -51,11 +53,11 @@ public class SeasonTicket {
         this.price = price;
     }
 
-    public String getSector() {
+    public Sector getSector() {
         return sector;
     }
 
-    public void setSector(String sector) {
+    public void setSector(Sector sector) {
         this.sector = sector;
     }
 }

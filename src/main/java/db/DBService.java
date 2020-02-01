@@ -3,6 +3,7 @@ package db;
 import entities.Customer;
 import entities.Season;
 import entities.SeasonTicket;
+import entities.Sector;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,6 +11,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,6 +38,7 @@ public class DBService{
     }
 
     public static void insertCustomerTicket(Customer c, SeasonTicket sT) {
+        session = DB.getInstance().getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         SeasonTicket existingTicket = selectTicket(sT);
         if (existingTicket == null) {
@@ -53,8 +56,29 @@ public class DBService{
         Query q = session.createQuery(hql).setParameter(1, seasonTicket.getSector()).setParameter(2, seasonTicket.getType())
                 .setParameter(3, seasonTicket.getSeason().getStart()).setParameter(4,seasonTicket.getSeason().getEnd());
         SeasonTicket sT = (SeasonTicket) q.uniqueResult();
-        session.close();
         return sT;
+    }
+
+    public static ArrayList<Sector> selectSectors() {
+        session = DB.getInstance().getSessionFactory().openSession();
+        //Transaction tx = session.beginTransaction();
+        String hql = "FROM Sector";
+        Query query = session.createQuery(hql);
+        ArrayList<Sector> sectors = (ArrayList<Sector>) query.list();
+        session.close();
+        System.out.println("SELECTED: " + sectors.size());
+        return sectors;
+    }
+
+    public static ArrayList<Season> selectSeasons() {
+        session = DB.getInstance().getSessionFactory().openSession();
+        //Transaction tx = session.beginTransaction();
+        String hql = "FROM Season";
+        Query query = session.createQuery(hql);
+        ArrayList<Season> seasons = (ArrayList<Season>) query.list();
+        session.close();
+        System.out.println("SELECTED: " + seasons.size());
+        return seasons;
     }
 
 }
