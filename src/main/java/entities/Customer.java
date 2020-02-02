@@ -1,9 +1,15 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+/**
+ * Represents database entity customer
+ *
+ * @author TomasCh
+ */
 @Entity
 public class Customer {
     @Id
@@ -12,6 +18,18 @@ public class Customer {
     private String password;
     private Date birthDate;
     private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private Date registerDate;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "customerticket",
+            joinColumns = { @JoinColumn(name = "customerId") },
+            inverseJoinColumns = { @JoinColumn(name = "ticketId") }
+    )
+    private Set<SeasonTicket> tickets = new HashSet<>();
+
 
     public String getLogin() {
         return login;
@@ -85,8 +103,22 @@ public class Customer {
         this.registerDate = registerDate;
     }
 
-    private String lastName;
-    private String email;
-    private String phone;
-    private Date registerDate;
+    public Set<SeasonTicket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Set<SeasonTicket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public void addTicket(SeasonTicket sT) {
+        if (tickets == null) {
+            tickets = new HashSet<>();
+        }
+        tickets.add(sT);
+    }
+
+    public String toString() {
+        return this.getLogin();
+    }
 }

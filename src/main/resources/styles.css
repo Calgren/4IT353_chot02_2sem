@@ -1,0 +1,4 @@
+.backgroundImage{
+    -fx-background-image: url("img/soccer-field-bckg.jpg");
+    -fx-background-size: cover;
+}

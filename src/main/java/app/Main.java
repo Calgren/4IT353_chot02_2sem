@@ -1,17 +1,17 @@
 package app;
 
-import entities.Customer;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-public class Main {
+public class Main extends Application {
     public static void main(String[] args) {
-        Customer c = new Customer();
+        launch();
+    }
 
-        Configuration con = new Configuration().configure();
-        SessionFactory sf = con.buildSessionFactory();
-        Session session = sf.openSession();
-        session.save(c);
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        App.getInstance().setStage(stage);
+        App.getInstance().logInScreen();
     }
 }

@@ -23,11 +23,19 @@
         </property>
 
         <property name = "hibernate.connection.password">
-            root123
+            1A7f658ff
         </property>
 
+        <property name="spring.jpa.hibernate.naming.physical-strategy">
+            org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        </property>
         <!-- List of XML mapping files -->
-       <!-- <mapping resource = "Employee.hbm.xml"/> -->
+       <!-- <mapping resource = "Employee.hbm.xml"/>-->
+        <mapping class="entities.Customer"/>
+        <mapping class="entities.Season"/>
+        <mapping class="entities.Sector"/>
+        <mapping class="entities.SeasonTicket"/>
+        <mapping class="entities.TicketType"/>
 
     </session-factory>
 </hibernate-configuration>
