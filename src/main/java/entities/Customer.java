@@ -117,4 +117,8 @@ public class Customer {
         }
         tickets.add(sT);
     }
+
+    public String toString() {
+        return this.getLogin();
+    }
 }

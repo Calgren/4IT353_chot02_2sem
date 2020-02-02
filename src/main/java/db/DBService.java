@@ -4,6 +4,8 @@ import entities.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
@@ -13,6 +15,7 @@ import java.util.ArrayList;
  * @author TomasCh
  */
 public class DBService{
+    static final Logger LOG = LoggerFactory.getLogger(DBService.class);
     private static Session session;
 
     /**
@@ -32,6 +35,7 @@ public class DBService{
         Query q = session.createQuery(hql).setParameter(1, login).setParameter(2, password);
         Customer customer = (Customer) q.uniqueResult();
         session.close();
+        LOG.info("Login try " + customer);
         return customer;
     }
 
@@ -47,6 +51,7 @@ public class DBService{
         Transaction tx = session.beginTransaction();
         session.save(c);
         tx.commit();
+        LOG.info("Insert customer " + c);
         session.close();
     }
 
@@ -62,6 +67,7 @@ public class DBService{
         Transaction tx = session.beginTransaction();
         session.update(c);
         tx.commit();
+        LOG.info("Update customer " + c);
         session.close();
     }
 
@@ -80,14 +86,15 @@ public class DBService{
         SeasonTicket existingTicket = selectTicket(sT);
         if (existingTicket == null) {
             session.save(sT);
+            LOG.info("Insert new season ticket.");
         } else {
             sT =existingTicket;
         }
         c.addTicket(sT);
         session.update(c);
         tx.commit();
+        LOG.info("Ticket purchase successful");
         session.close();
-        System.out.println("Season ticket saved");
     }
 
     /**

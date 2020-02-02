@@ -40,8 +40,6 @@ public class LoginController {
             loggingInLabel.setVisible(true);
             spinner.setProgress(0.1);
             loginPromise();
-
-            System.out.println("LOGGED IN");
         }
     }
 

@@ -1,5 +1,7 @@
 package db;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -9,7 +11,7 @@ import org.hibernate.cfg.Configuration;
  * @author TomasCh
  */
 public class DB {
-
+    static final Logger LOG = LoggerFactory.getLogger(DB.class);
     private static DB dB = null;
     private Configuration con;
     private SessionFactory sf;
@@ -18,7 +20,7 @@ public class DB {
     private DB() {
         con = new Configuration().configure();
         sf = con.buildSessionFactory();
-        System.out.println("DB Object created.");
+        LOG.info("Connected to database");
     }
 
     /**
