@@ -6,6 +6,8 @@ import entities.Customer;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import logic.ValidationService;
+import org.hibernate.exception.ConstraintViolationException;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -19,6 +21,7 @@ public class RegisterController {
     public TextField emailInput;
     public TextField phoneInput;
     public Label errorsLabel;
+    public Label updateSuccessLabel;
 
 
     public void handleBackClick() {
@@ -27,6 +30,10 @@ public class RegisterController {
 
     public void registerNewCustomer() {
         try {
+            if (birthDateInput.getValue() == null) {
+                errorsLabel.setText("Fill all required field: login, password, first, last name, birthdate and email.");
+                return;
+            }
             Customer newCustomer = new Customer();
             newCustomer.setLogin(loginInput.getText());
             newCustomer.setPassword(passwordInput.getText());
@@ -37,9 +44,17 @@ public class RegisterController {
             newCustomer.setPhone(phoneInput.getText());
             newCustomer.setType("Customer");
             newCustomer.setRegisterDate(new Date(Calendar.getInstance().getTime().getTime()));
-            DBService.insertCustomer(newCustomer);
+            if (ValidationService.customerValidForCreation(newCustomer)) {
+                DBService.insertCustomer(newCustomer);
+                updateSuccessLabel.setVisible(true);
+                errorsLabel.setText("");
+            } else {
+                updateSuccessLabel.setVisible(false);
+                errorsLabel.setText("Fill all required field: login, password, first, last name, birthdate and email.");
+            }
+
         } catch (Exception e) {
-            errorsLabel.setText("Error during creating new Customer in database. " + e.getMessage() + " " + e.getClass());
+            errorsLabel.setText("This user already exists.");
             errorsLabel.setVisible(true);
             System.out.println("Error during creating new Customer in database. " + e.getMessage() + " " + e.getClass());
         }
