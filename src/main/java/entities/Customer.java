@@ -5,6 +5,11 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represents database entity customer
+ *
+ * @author TomasCh
+ */
 @Entity
 public class Customer {
     @Id

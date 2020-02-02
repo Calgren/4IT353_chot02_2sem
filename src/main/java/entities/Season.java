@@ -6,6 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Date;
 
+/**
+ * Represents database entity season
+ *
+ * @author TomasCh
+ */
 @Entity
 public class Season {
     @Id

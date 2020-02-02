@@ -7,10 +7,24 @@ import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 
-
+/**
+ * Database service provides methods to communicate with database
+ *
+ * @author TomasCh
+ */
 public class DBService{
     private static Session session;
 
+    /**
+     * tries to select customer with particular login and password from db
+     *
+     * @param login customer login
+     * @param password customer password
+     *
+     * @return customer with particular login and password
+     *
+     * @author TomasCh
+     */
     public static Customer logIn(String login, String password) {
         session = DB.getInstance().getSessionFactory().openSession();
         //Transaction tx = session.beginTransaction();
@@ -21,6 +35,13 @@ public class DBService{
         return customer;
     }
 
+    /**
+     * inserts customer into db
+     *
+     * @param c customer to save
+     *
+     * @author TomasCh
+     */
     public static void insertCustomer(Customer c) {
         session = DB.getInstance().getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
@@ -29,6 +50,13 @@ public class DBService{
         session.close();
     }
 
+    /**
+     * updates customer in db
+     *
+     * @param c customer to save
+     *
+     * @author TomasCh
+     */
     public static void updateCustomer(Customer c) {
         session = DB.getInstance().getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
@@ -37,6 +65,15 @@ public class DBService{
         session.close();
     }
 
+    /**
+     * Ticket purchase - if particular ticket doesn't exist in db, inserts that ticket into db and links is according to
+     * M:N customer - season ticket relation in relational table. If same ticket already exists, use it for relation.
+     *
+     * @param c customer to save
+     * @param sT ticket for purchase
+     *
+     * @author TomasCh
+     */
     public static void insertCustomerTicket(Customer c, SeasonTicket sT) {
         session = DB.getInstance().getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
@@ -53,9 +90,15 @@ public class DBService{
         System.out.println("Season ticket saved");
     }
 
+    /**
+     * selects all sectors from db
+     *
+     * @return list of all sectors
+     *
+     * @author TomasCh
+     */
     public static ArrayList<Sector> selectSectors() {
         session = DB.getInstance().getSessionFactory().openSession();
-        //Transaction tx = session.beginTransaction();
         String hql = "FROM Sector";
         Query query = session.createQuery(hql);
         ArrayList<Sector> sectors = (ArrayList<Sector>) query.list();
@@ -63,9 +106,15 @@ public class DBService{
         return sectors;
     }
 
+    /**
+     * selects all ticket types from db
+     *
+     * @return list of all ticket types
+     *
+     * @author TomasCh
+     */
     public static ArrayList<TicketType> selectTicketTypes() {
         session = DB.getInstance().getSessionFactory().openSession();
-        //Transaction tx = session.beginTransaction();
         String hql = "FROM TicketType";
         Query query = session.createQuery(hql);
         ArrayList<TicketType> ticketTypes = (ArrayList<TicketType>) query.list();
@@ -73,9 +122,15 @@ public class DBService{
         return ticketTypes;
     }
 
+    /**
+     * selects all seasons
+     *
+     * @return list of all seasons
+     *
+     * @author TomasCh
+     */
     public static ArrayList<Season> selectSeasons() {
         session = DB.getInstance().getSessionFactory().openSession();
-        //Transaction tx = session.beginTransaction();
         String hql = "FROM Season";
         Query query = session.createQuery(hql);
         ArrayList<Season> seasons = (ArrayList<Season>) query.list();
@@ -83,13 +138,20 @@ public class DBService{
         return seasons;
     }
 
+    /**
+     * tries to find ticket with same season, sector and type in db
+     *
+     * @param seasonTicket ticket for purchase
+     *
+     * @return ticket with same season, sector and type in db
+     *
+     * @author TomasCh
+     */
     private static SeasonTicket selectTicket(SeasonTicket seasonTicket) {
-        //Transaction tx = session.beginTransaction();
         String hql = "FROM SeasonTicket st WHERE st.sector.sectorId = ?1 AND st.type.name = ?2 AND st.season.start = ?3 AND st.season.end = ?4";
         Query q = session.createQuery(hql).setParameter(1, seasonTicket.getSector().getSectorId()).setParameter(2, seasonTicket.getType().getName())
                 .setParameter(3, seasonTicket.getSeason().getStart()).setParameter(4,seasonTicket.getSeason().getEnd());
         SeasonTicket sT = (SeasonTicket) q.uniqueResult();
-        System.out.println("TTTT ticket " + q.getQueryString() + "   " + sT );
         return sT;
     }
 }

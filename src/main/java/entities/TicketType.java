@@ -3,6 +3,11 @@ package entities;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+ * Represents database entity tickettype
+ *
+ * @author TomasCh
+ */
 @Entity
 public class TicketType {
     @Id

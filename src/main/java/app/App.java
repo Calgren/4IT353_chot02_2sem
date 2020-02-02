@@ -9,6 +9,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Singleton Application instance, holds information about logged in customer and switches screens
+ *
+ * @author TomasCh
+ */
 public class App {
     private static App app = null;
 

@@ -4,6 +4,11 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represents database entity seasonticket
+ *
+ * @author TomasCh
+ */
 @Entity
 public class SeasonTicket {
     @Id
