@@ -13,6 +13,11 @@ import javafx.scene.control.TextField;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Controller for login screen
+ *
+ * @author TomasCh
+ */
 public class LoginController {
     @FXML
     public TextField passwordField;
@@ -27,6 +32,11 @@ public class LoginController {
     @FXML
     public Button logInButton;
 
+    /**
+     * Tries to log in if username and password is filled, shows spinner until logged in
+     *
+     * @author TomasCh
+     */
     public void handleLogInClick(ActionEvent actionEvent) {
         if (passwordField.getText().isBlank() || loginField.getText().isBlank()) {
             logInErrorLabel.setVisible(true);
@@ -43,10 +53,20 @@ public class LoginController {
         }
     }
 
+    /**
+     * switches screen to new account creation
+     *
+     * @author TomasCh
+     */
     public void handleNewAccountClick(ActionEvent actionEvent) {
         App.getInstance().newAccountScreen();
     }
 
+    /**
+     * asynchronously calls login, after logged in, shows either error or sets logged in customer
+     *
+     * @author TomasCh
+     */
     private void loginPromise() {
         CompletableFuture<Customer> logInFutureQuery = CompletableFuture.supplyAsync(() -> {
             Customer c = null;

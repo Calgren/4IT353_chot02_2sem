@@ -19,7 +19,11 @@ import logic.ValidationService;
 import java.sql.Date;
 import java.util.ArrayList;
 
-
+/**
+ * Controller for main page of app
+ *
+ * @author TomasCh
+ */
 public class HomeController {
     public Pane ticketsPage;
     public TableView<SeasonTicket> ticketsTable;
@@ -46,6 +50,11 @@ public class HomeController {
     public ComboBox<String> entityFilter;
     public TableView statsTable;
 
+    /**
+     * init fetches information about logged in customer
+     *
+     * @author TomasCh
+     */
     @FXML
     public void initialize() {
         entityFilter.setItems(FXCollections.observableArrayList(new String[]{"Customers", "Bought Tickets"}));
@@ -53,11 +62,21 @@ public class HomeController {
     }
 
 
+    /**
+     * handles log out, returns to login screen and nulls logged in customer
+     *
+     * @author TomasCh
+     */
     public void handleLogOutClick(MouseEvent mouseEvent) {
         App.getInstance().logInScreen();
         App.getInstance().setLoggedInCustomer(null);
     }
 
+    /**
+     * switches to tickets page
+     *
+     * @author TomasCh
+     */
     public void showTickets(MouseEvent mouseEvent) {
         accountPage.setVisible(false);
         statsPage.setVisible(false);
@@ -66,6 +85,11 @@ public class HomeController {
         ticketsPage.setVisible(true);
     }
 
+    /**
+     * switches to account overview page
+     *
+     * @author TomasCh
+     */
     public void showAccount(MouseEvent mouseEvent) {
         errorText.setText("");
         ticketsPage.setVisible(false);
@@ -75,6 +99,11 @@ public class HomeController {
         accountPage.setVisible(true);
     }
 
+    /**
+     * switches to statistics page
+     *
+     * @author TomasCh
+     */
     public void showStatistics(MouseEvent mouseEvent) {
         errorText.setText("");
         ticketsPage.setVisible(false);
@@ -82,6 +111,11 @@ public class HomeController {
         statsPage.setVisible(true);
     }
 
+    /**
+     * shows new ticket creation modal, fetches available options
+     *
+     * @author TomasCh
+     */
     public void newTicket(MouseEvent mouseEvent) {
         errorText.setText("");
         buyTicketSector.setItems(FXCollections.observableArrayList(DBService.selectSectors()));
@@ -90,6 +124,11 @@ public class HomeController {
         newTicketPane.setVisible(!newTicketPane.isVisible());
     }
 
+    /**
+     * creates nwe ticket in database if possible
+     *
+     * @author TomasCh
+     */
     public void buyTicket(ActionEvent actionEvent) {
         if (priceLabel.getText() == null) {
             return;
@@ -110,9 +149,13 @@ public class HomeController {
                 errorText.setText(error);
             }
         }
-        System.out.println("FALSE");
     }
 
+    /**
+     * if possible, recalculates price and displays it
+     *
+     * @author TomasCh
+     */
     public void recalculatePrice(ActionEvent actionEvent) {
         if (buyTicketType.getValue() != null && buyTicketSector.getValue() != null) {
             priceLabel.setText(CalculationService.calculateTicketPrice(buyTicketSector.getValue().getPricePoint(),
@@ -120,6 +163,11 @@ public class HomeController {
         }
     }
 
+    /**
+     * inits customer tickets table columns
+     *
+     * @author TomasCh
+     */
     private void initCustomerTicketsTable() {
         ticketsTypeCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<SeasonTicket,String>, ObservableValue<String>>() {
             @Override
@@ -150,14 +198,24 @@ public class HomeController {
             }
         });
     }
+
+    /**
+     * refreshes customer tickets table
+     *
+     * @author TomasCh
+     */
     private void refreshTicketsTable() {
         ticketsTable.getItems().clear();
         for (SeasonTicket ticket : App.getInstance().getLoggedInCustomer().getTickets()) {
-            System.out.println("TTTT adding ticket");
             ticketsTable.getItems().add(ticket);
         }
     }
 
+    /**
+     * refreshes customer infromation
+     *
+     * @author TomasCh
+     */
     private void refreshCustomerInformation() {
         loginInput.setText(App.getInstance().getLoggedInCustomer().getLogin());
         firstNameInput.setText(App.getInstance().getLoggedInCustomer().getFirstName());
@@ -168,6 +226,11 @@ public class HomeController {
         phoneInput.setText(App.getInstance().getLoggedInCustomer().getPhone());
     }
 
+    /**
+     * if possible, updates customer information in database
+     *
+     * @author TomasCh
+     */
     public void updateCustomer(ActionEvent actionEvent) {
         Customer c = App.getInstance().getLoggedInCustomer();
         c.setLogin(App.getInstance().getLoggedInCustomer().getLogin());
@@ -190,6 +253,11 @@ public class HomeController {
         }
     }
 
+    /**
+     * refreshes filtered data
+     *
+     * @author TomasCh
+     */
     public void refreshFilter() {
         switch (entityFilter.getValue()) {
             case "Customers" : showCustomers();
@@ -197,6 +265,11 @@ public class HomeController {
         }
     }
 
+    /**
+     * inits stats table for customers
+     *
+     * @author TomasCh
+     */
     private void showCustomers() {
         statsTable.getItems().clear();
         statsTable.getColumns().clear();
@@ -225,6 +298,11 @@ public class HomeController {
         statsTable.getItems().addAll(customers);
     }
 
+    /**
+     * inits stats table for tickets
+     *
+     * @author TomasCh
+     */
     private void showBoughtTickets() {
         statsTable.getItems().clear();
         statsTable.getColumns().clear();
