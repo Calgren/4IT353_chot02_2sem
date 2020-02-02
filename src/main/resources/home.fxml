@@ -69,7 +69,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="accountPage" layoutX="14.0" layoutY="14.0" prefHeight="272.0" prefWidth="574.0">
+            <Pane fx:id="accountPage" layoutX="14.0" layoutY="14.0" prefHeight="272.0" prefWidth="574.0" visible="false">
                <children>
                   <VBox layoutX="14.0" layoutY="13.0" prefHeight="243.0" prefWidth="100.0">
                      <children>
@@ -184,6 +184,12 @@
                         <Label fx:id="priceLabel" layoutX="64.0" layoutY="138.0" textFill="WHITE" />
                      </children>
                   </Pane>
+               </children>
+            </Pane>
+            <Pane fx:id="statsPage" layoutX="14.0" layoutY="14.0" prefHeight="271.0" prefWidth="573.0">
+               <children>
+                  <TableView fx:id="statsTable" layoutX="14.0" layoutY="14.0" prefHeight="242.0" prefWidth="422.0" />
+                  <ComboBox fx:id="entityFilter" layoutX="443.0" layoutY="31.0" onAction="#refreshFilter" prefHeight="25.0" prefWidth="130.0" />
                </children>
             </Pane>
             <Label fx:id="errorText" layoutX="86.0" layoutY="276.0" textFill="RED" />

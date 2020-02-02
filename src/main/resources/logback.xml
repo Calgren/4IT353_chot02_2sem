@@ -4,7 +4,7 @@
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -fsafsa %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -12,7 +12,7 @@
         <file> logs/log-${byDay}.txt </file>
         <append>true</append>
         <encoder>
-            <pattern>${time} [%thread] %-5level %logger{35} -fsafsa %msg%n</pattern>
+            <pattern>${time} [%thread] %-5level %logger{35} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -21,7 +21,7 @@
     </logger>
 
     <!-- By default, the level of the root level is set to DEBUG -->
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
     </root>
 

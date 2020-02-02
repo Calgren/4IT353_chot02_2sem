@@ -146,6 +146,23 @@ public class DBService{
     }
 
     /**
+     * selects all customers in database
+     *
+     * @return customers
+     *
+     * @author TomasCh
+     */
+    public static ArrayList<Customer> selectAllCustomers() {
+        session = DB.getInstance().getSessionFactory().openSession();
+        String hql = "FROM Customer c WHERE c.type = ?1";
+        Query q = session.createQuery(hql).setParameter(1, "Customer");
+        ArrayList<Customer> customers = (ArrayList<Customer>) q.list();
+        session.close();
+        LOG.info("Selected all customers");
+        return customers;
+    }
+
+    /**
      * tries to find ticket with same season, sector and type in db
      *
      * @param seasonTicket ticket for purchase
