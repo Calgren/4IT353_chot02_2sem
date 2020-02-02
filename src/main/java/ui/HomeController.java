@@ -6,6 +6,7 @@ import db.DBService;
 import entities.Season;
 import entities.SeasonTicket;
 import entities.Sector;
+import entities.TicketType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import logic.CalculationService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +25,7 @@ public class HomeController {
     public Pane ticketsPage;
     public TableView ticketsTable;
     public Pane newTicketPane;
-    public ComboBox<String> buyTicketType;
+    public ComboBox<TicketType> buyTicketType;
     public ComboBox<Season> buyTicketSeason;
     public ComboBox<Sector> buyTicketSector;
     public Label priceLabel;
@@ -49,21 +51,28 @@ public class HomeController {
     }
 
     public void newTicket(MouseEvent mouseEvent) {
-        ArrayList<Sector> sectors = DBService.selectSectors();
-        ArrayList<Season> seasons = DBService.selectSeasons();
-        System.out.println("SELECTED: " + sectors);
-        buyTicketSector.setItems(FXCollections.observableArrayList(sectors));
-        buyTicketSeason.setItems(FXCollections.observableArrayList(seasons));
-        buyTicketType.setItems(FXCollections.observableArrayList(TICKET_TYPES));
+        buyTicketSector.setItems(FXCollections.observableArrayList(DBService.selectSectors()));
+        buyTicketSeason.setItems(FXCollections.observableArrayList(DBService.selectSeasons()));
+        buyTicketType.setItems(FXCollections.observableArrayList(DBService.selectTicketTypes()));
         newTicketPane.setVisible(!newTicketPane.isVisible());
     }
 
     public void buyTicket(ActionEvent actionEvent) {
-
         SeasonTicket ticket = new SeasonTicket();
         ticket.setType(buyTicketType.getValue());
         ticket.setPrice(Float.valueOf(priceLabel.getText()));
-        //ticket.setSector(buyTicketSector.getValue());
+        ticket.setSector(buyTicketSector.getValue());
         ticket.setSeason(buyTicketSeason.getValue());
+        DBService.insertCustomerTicket(App.getInstance().getLoggedInCustomer(), ticket);
+        newTicketPane.setVisible(false);
+        System.out.println("FALSE");
+    }
+
+    public void recalculatePrice(ActionEvent actionEvent) {
+        if (buyTicketType.getValue() != null && buyTicketSector.getValue() != null) {
+            priceLabel.setText(CalculationService.calculateTicketPrice(buyTicketSector.getValue().getPricePoint(),
+                    buyTicketType.getValue().getDefaultPrice()).toString());
+        }
+
     }
 }

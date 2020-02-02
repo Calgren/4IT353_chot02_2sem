@@ -8,6 +8,7 @@ public class Sector {
     @Id
     private String sectorId;
     private Float pricePoint;
+    private Boolean adultOnly;
 
     public String getSectorId() {
         return sectorId;
@@ -27,5 +28,13 @@ public class Sector {
 
     public String toString() {
         return sectorId;
+    }
+
+    public Boolean getAdultOnly() {
+        return adultOnly;
+    }
+
+    public void setAdultOnly(Boolean adultOnly) {
+        this.adultOnly = adultOnly;
     }
 }

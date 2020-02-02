@@ -9,7 +9,9 @@ public class SeasonTicket {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer idSeasonTicket;
-    private String type;
+    @ManyToOne
+    @JoinColumn(name = "typeId")
+    private TicketType type;
     @ManyToOne
     @JoinColumn(name = "seasonId")
     private Season season;
@@ -29,11 +31,11 @@ public class SeasonTicket {
         this.idSeasonTicket = idSeasonTicket;
     }
 
-    public String getType() {
+    public TicketType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TicketType type) {
         this.type = type;
     }
 

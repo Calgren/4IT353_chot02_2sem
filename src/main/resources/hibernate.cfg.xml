@@ -35,6 +35,7 @@
         <mapping class="entities.Season"/>
         <mapping class="entities.Sector"/>
         <mapping class="entities.SeasonTicket"/>
+        <mapping class="entities.TicketType"/>
 
     </session-factory>
 </hibernate-configuration>

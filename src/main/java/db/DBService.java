@@ -1,9 +1,6 @@
 package db;
 
-import entities.Customer;
-import entities.Season;
-import entities.SeasonTicket;
-import entities.Sector;
+import entities.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -48,6 +45,7 @@ public class DBService{
         session.update(c);
         tx.commit();
         session.close();
+        System.out.println("Season ticket saved");
     }
 
     private static SeasonTicket selectTicket(SeasonTicket seasonTicket) {
@@ -66,8 +64,17 @@ public class DBService{
         Query query = session.createQuery(hql);
         ArrayList<Sector> sectors = (ArrayList<Sector>) query.list();
         session.close();
-        System.out.println("SELECTED: " + sectors.size());
         return sectors;
+    }
+
+    public static ArrayList<TicketType> selectTicketTypes() {
+        session = DB.getInstance().getSessionFactory().openSession();
+        //Transaction tx = session.beginTransaction();
+        String hql = "FROM TicketType";
+        Query query = session.createQuery(hql);
+        ArrayList<TicketType> ticketTypes = (ArrayList<TicketType>) query.list();
+        session.close();
+        return ticketTypes;
     }
 
     public static ArrayList<Season> selectSeasons() {
@@ -77,7 +84,6 @@ public class DBService{
         Query query = session.createQuery(hql);
         ArrayList<Season> seasons = (ArrayList<Season>) query.list();
         session.close();
-        System.out.println("SELECTED: " + seasons.size());
         return seasons;
     }
 
