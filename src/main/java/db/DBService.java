@@ -39,7 +39,10 @@ public class DBService{
         Transaction tx = session.beginTransaction();
         SeasonTicket existingTicket = selectTicket(sT);
         if (existingTicket == null) {
+            System.out.println("TTTT "+ sT.getPrice());
             session.save(sT);
+        } else {
+            sT =existingTicket;
         }
         c.addTicket(sT);
         session.update(c);
@@ -50,10 +53,11 @@ public class DBService{
 
     private static SeasonTicket selectTicket(SeasonTicket seasonTicket) {
         //Transaction tx = session.beginTransaction();
-        String hql = "FROM SeasonTicket sT WHERE sT.sector = ?1 AND sT.type = ?2 AND st.season.start = ?3 AND st.season.end = ?4";
-        Query q = session.createQuery(hql).setParameter(1, seasonTicket.getSector()).setParameter(2, seasonTicket.getType())
+        String hql = "FROM SeasonTicket st WHERE st.sector.sectorId = ?1 AND st.type.name = ?2 AND st.season.start = ?3 AND st.season.end = ?4";
+        Query q = session.createQuery(hql).setParameter(1, seasonTicket.getSector().getSectorId()).setParameter(2, seasonTicket.getType().getName())
                 .setParameter(3, seasonTicket.getSeason().getStart()).setParameter(4,seasonTicket.getSeason().getEnd());
         SeasonTicket sT = (SeasonTicket) q.uniqueResult();
+        System.out.println("TTTT ticket " + q.getQueryString() + "   " + sT );
         return sT;
     }
 
@@ -86,5 +90,4 @@ public class DBService{
         session.close();
         return seasons;
     }
-
 }

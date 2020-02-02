@@ -17,7 +17,7 @@ public class Customer {
     private String email;
     private String phone;
     private Date registerDate;
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(
             name = "customerticket",
             joinColumns = { @JoinColumn(name = "customerId") },

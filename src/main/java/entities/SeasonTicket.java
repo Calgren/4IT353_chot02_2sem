@@ -21,7 +21,7 @@ public class SeasonTicket {
     private Sector sector;
 
     @ManyToMany(mappedBy = "tickets")
-    private Set<Customer> employees = new HashSet<>();
+    private Set<Customer> customers = new HashSet<>();
 
     public Integer getIdSeasonTicket() {
         return idSeasonTicket;

@@ -3,6 +3,7 @@ package logic;
 import entities.Customer;
 import entities.SeasonTicket;
 
+import javax.transaction.Transactional;
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -37,13 +38,13 @@ public class ValidationService {
             return "Person over 18 years cannot purchase junior ticket.";
         }
         if (ticket.getSector().getAdultOnly()) {
-            return "Junior ticket cannot be purchased into adult only sector";
+            return "Junior ticket cannot be purchased into adult only sector.";
         }
         return null;
     }
     private static String validatePurchaseForKidTicket(SeasonTicket ticket, Customer c) {
         if (ticket.getSector().getAdultOnly()) {
-            return "Kid ticket cannot be purchased into adult only sector";
+            return "Kid ticket cannot be purchased into adult only sector.";
         }
         SeasonTicket adultTicket = null;
         for (SeasonTicket st: c.getTickets()) {
@@ -53,10 +54,10 @@ public class ValidationService {
         }
         if (adultTicket != null) {
             if (!adultTicket.getSector().getSectorId().equals(ticket.getSector().getSectorId())) {
-                return "Kids ticket has to be purchased to same sector as adult ticket";
+                return "Kids ticket has to be purchased to same sector as adult ticket.";
             }
         } else {
-            return "Adult ticket for corresponding season has to be purchased before purchasing kids ticket";
+            return "Adult ticket for corresponding season has to be purchased before purchasing kids ticket.";
         }
         return null;
     }
