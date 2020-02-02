@@ -3,19 +3,14 @@ package ui;
 import app.App;
 import db.DB;
 import db.DBService;
-import entities.Season;
-import entities.SeasonTicket;
-import entities.Sector;
-import entities.TicketType;
+import entities.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -23,6 +18,7 @@ import javafx.util.Callback;
 import logic.CalculationService;
 import logic.ValidationService;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -40,9 +36,19 @@ public class HomeController {
     public ComboBox<Sector> buyTicketSector;
     public Label priceLabel;
     public Label errorText;
+    public Pane accountPage;
+    public TextField loginInput;
+    public TextField passwordInput;
+    public TextField firstNameInput;
+    public TextField lastNameInput;
+    public DatePicker birthDateInput;
+    public TextField emailInput;
+    public TextField phoneInput;
+    public Label updateSuccessLabel;
 
-    public HomeController() {
-
+    @FXML
+    public void initialize() {
+        refreshCustomerInformation();
     }
 
 
@@ -52,12 +58,17 @@ public class HomeController {
     }
 
     public void showTickets(MouseEvent mouseEvent) {
+        accountPage.setVisible(false);
         ticketsPage.setVisible(true);
         initCustomerTicketsTable();
         refreshTicketsTable();
     }
 
     public void showAccount(MouseEvent mouseEvent) {
+        ticketsPage.setVisible(false);
+        refreshCustomerInformation();
+        updateSuccessLabel.setVisible(false);
+        accountPage.setVisible(true);
     }
 
     public void showStatistics(MouseEvent mouseEvent) {
@@ -136,6 +147,38 @@ public class HomeController {
         for (SeasonTicket ticket : App.getInstance().getLoggedInCustomer().getTickets()) {
             System.out.println("TTTT adding ticket");
             ticketsTable.getItems().add(ticket);
+        }
+    }
+
+    private void refreshCustomerInformation() {
+        loginInput.setText(App.getInstance().getLoggedInCustomer().getLogin());
+        firstNameInput.setText(App.getInstance().getLoggedInCustomer().getFirstName());
+        lastNameInput.setText(App.getInstance().getLoggedInCustomer().getLastName());
+        passwordInput.setText(App.getInstance().getLoggedInCustomer().getPassword());
+        birthDateInput.setValue(App.getInstance().getLoggedInCustomer().getBirthDate().toLocalDate());
+        emailInput.setText(App.getInstance().getLoggedInCustomer().getEmail());
+        phoneInput.setText(App.getInstance().getLoggedInCustomer().getPhone());
+    }
+
+    public void updateCustomer(ActionEvent actionEvent) {
+        Customer c = App.getInstance().getLoggedInCustomer();
+        c.setLogin(App.getInstance().getLoggedInCustomer().getLogin());
+
+        c.setRegisterDate(App.getInstance().getLoggedInCustomer().getRegisterDate());
+        c.setPassword(passwordInput.getText());
+        c.setFirstName(firstNameInput.getText());
+        c.setLastName(lastNameInput.getText());
+        c.setBirthDate(Date.valueOf(birthDateInput.getValue()));
+        c.setEmail(emailInput.getText());
+        c.setPhone(phoneInput.getText());
+        if (ValidationService.customerValidForCreation(c)) {
+            App.getInstance().setLoggedInCustomer(c);
+            DBService.updateCustomer(App.getInstance().getLoggedInCustomer());
+            updateSuccessLabel.setVisible(true);
+            errorText.setText("");
+        } else {
+            updateSuccessLabel.setVisible(false);
+            errorText.setText("Fill all required field: login, password, first, last name, birthdate and email.");
         }
     }
 }

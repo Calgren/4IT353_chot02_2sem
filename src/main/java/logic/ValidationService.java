@@ -13,6 +13,11 @@ public class ValidationService {
         return (st.getSector() != null && st.getSeason() != null && st.getType() != null && st.getPrice() != null);
     }
 
+    public static Boolean customerValidForCreation(Customer c) {
+        return (!c.getLogin().isBlank() && !c.getPassword().isBlank() && !c.getEmail().isBlank()
+                && !c.getFirstName().isBlank() && !c.getLastName().isBlank() && c.getBirthDate() != null);
+    }
+
     public static String ticketCanBePurchased(SeasonTicket st, Customer c) {
         switch (st.getType().getName()) {
             case "Adult" : return validatePurchaseForAdultTicket(st, c);

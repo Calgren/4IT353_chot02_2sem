@@ -7,11 +7,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.PasswordField?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="backgroundImage" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.LoginController">
    <children>
       <ProgressIndicator fx:id="spinner" layoutX="239.0" layoutY="39.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="89.0" prefWidth="123.0" progress="0.0" visible="false" />
       <TextField fx:id="loginField" layoutX="226.0" layoutY="175.0" />
-      <TextField fx:id="passwordField" layoutX="226.0" layoutY="223.0" />
+      <PasswordField fx:id="passwordField" layoutX="226.0" layoutY="223.0" />
       <Button fx:id="logInButton" layoutX="274.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleLogInClick" text="Log in" />
       <Label layoutX="165.0" layoutY="179.0" prefHeight="17.0" prefWidth="38.0" text="Login" textFill="WHITE">
          <font>

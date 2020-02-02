@@ -2,15 +2,10 @@ package db;
 
 import entities.*;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 
 public class DBService{
@@ -34,12 +29,19 @@ public class DBService{
         session.close();
     }
 
+    public static void updateCustomer(Customer c) {
+        session = DB.getInstance().getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        session.update(c);
+        tx.commit();
+        session.close();
+    }
+
     public static void insertCustomerTicket(Customer c, SeasonTicket sT) {
         session = DB.getInstance().getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         SeasonTicket existingTicket = selectTicket(sT);
         if (existingTicket == null) {
-            System.out.println("TTTT "+ sT.getPrice());
             session.save(sT);
         } else {
             sT =existingTicket;
@@ -49,16 +51,6 @@ public class DBService{
         tx.commit();
         session.close();
         System.out.println("Season ticket saved");
-    }
-
-    private static SeasonTicket selectTicket(SeasonTicket seasonTicket) {
-        //Transaction tx = session.beginTransaction();
-        String hql = "FROM SeasonTicket st WHERE st.sector.sectorId = ?1 AND st.type.name = ?2 AND st.season.start = ?3 AND st.season.end = ?4";
-        Query q = session.createQuery(hql).setParameter(1, seasonTicket.getSector().getSectorId()).setParameter(2, seasonTicket.getType().getName())
-                .setParameter(3, seasonTicket.getSeason().getStart()).setParameter(4,seasonTicket.getSeason().getEnd());
-        SeasonTicket sT = (SeasonTicket) q.uniqueResult();
-        System.out.println("TTTT ticket " + q.getQueryString() + "   " + sT );
-        return sT;
     }
 
     public static ArrayList<Sector> selectSectors() {
@@ -89,5 +81,15 @@ public class DBService{
         ArrayList<Season> seasons = (ArrayList<Season>) query.list();
         session.close();
         return seasons;
+    }
+
+    private static SeasonTicket selectTicket(SeasonTicket seasonTicket) {
+        //Transaction tx = session.beginTransaction();
+        String hql = "FROM SeasonTicket st WHERE st.sector.sectorId = ?1 AND st.type.name = ?2 AND st.season.start = ?3 AND st.season.end = ?4";
+        Query q = session.createQuery(hql).setParameter(1, seasonTicket.getSector().getSectorId()).setParameter(2, seasonTicket.getType().getName())
+                .setParameter(3, seasonTicket.getSeason().getStart()).setParameter(4,seasonTicket.getSeason().getEnd());
+        SeasonTicket sT = (SeasonTicket) q.uniqueResult();
+        System.out.println("TTTT ticket " + q.getQueryString() + "   " + sT );
+        return sT;
     }
 }

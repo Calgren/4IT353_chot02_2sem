@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.PasswordField?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #121212;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RegisterController">
    <left>
       <VBox fillWidth="false" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #404040;" BorderPane.alignment="CENTER">
@@ -67,11 +68,11 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="passwordInput">
+            <PasswordField fx:id="passwordInput">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
-            </TextField>
+            </PasswordField>
             <TextField fx:id="firstNameInput">
                <VBox.margin>
                   <Insets bottom="10.0" />
