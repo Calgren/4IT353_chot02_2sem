@@ -18,6 +18,7 @@ import logic.ValidationService;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * Controller for main page of app
@@ -336,5 +337,22 @@ public class HomeController {
             tickets.addAll(c.getTickets());
         }
         statsTable.getItems().addAll(tickets);
+    }
+
+    public void deleteAccount(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Look, a Confirmation Dialog");
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            DBService.deleteCustomer(App.getInstance().getLoggedInCustomer());
+            App.getInstance().setLoggedInCustomer(null);
+            App.getInstance().logInScreen();
+        } else {
+            alert.close();
+        }
+
     }
 }

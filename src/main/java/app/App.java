@@ -5,6 +5,7 @@ import entities.Customer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -95,6 +96,21 @@ public class App {
         } catch (IOException e) {
             System.out.println("Error during switching to Home screen. " + e.getMessage());
         }
+    }
 
+    public void databaseClosed() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Couldn't complete operation");
+        alert.setHeaderText("Couldn't connect to server.");
+        alert.showAndWait();
+    }
+
+    public void customerNotExisting() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Couldn't complete operation");
+        alert.setHeaderText("Current customer doesn't exists in database.");
+        alert.showAndWait();
+        this.setLoggedInCustomer(null);
+        logInScreen();
     }
 }
