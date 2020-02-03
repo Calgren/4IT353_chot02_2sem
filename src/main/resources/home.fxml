@@ -155,6 +155,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
+                  <Button layoutX="462.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteAccount" text="Delete Account" />
                </children></Pane>
             <Pane fx:id="ticketsPage" layoutX="14.0" layoutY="14.0" prefHeight="267.0" prefWidth="570.0" visible="false">
                <children>
