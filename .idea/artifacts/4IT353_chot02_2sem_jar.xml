@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="4IT353_chot02_2sem:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/4IT353_chot02_2sem_jar</output-path>
+    <output-path>$PROJECT_DIR$/jar/4IT353_chot02_2sem_jar</output-path>
     <root id="archive" name="4IT353_chot02_2sem.jar">
       <element id="module-output" name="4IT353_chot02_2sem" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11/javafx-graphics-11-win.jar" path-in-jar="/" />
